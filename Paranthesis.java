@@ -41,7 +41,8 @@ public class Main
 		                }
 		            }
 		        }
-		    }
+			}
+			System.out.println("hi");
 		    if(res==true){
 		        System.out.println("balanced");
 		    }else{

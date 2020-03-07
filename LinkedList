@@ -1,0 +1,188 @@
+public class MyLinkedList {
+    
+    static Node head = null;
+    static Node tail = null;
+    static class Node {
+        int data;
+        Node next;
+    
+        public Node(int d){
+            data = d;
+            next = null;
+        }
+    }
+    public void printList() {
+        Node n = head;
+        
+        while(n != null){
+            
+            System.out.print(n.data+ " ");
+            n = n.next;
+        }
+    
+        System.out.println();
+    }  
+    
+    public void addNormal(int s){
+        
+        Node currentNode = new Node(s);
+        
+        
+        if(head == null){
+            head = currentNode;
+            tail = currentNode;
+        }
+        
+        else {
+            tail.next = currentNode;
+            tail = currentNode;
+            
+        }
+        
+    }
+    
+    public void insertAfter(int search, int value){         // 12 , 97 ---- Insert 97 after node having data as 12
+        Node insertionNode = new Node(value);
+        
+        Node n = head;
+        
+        while(n.data != search){
+            n = n.next;
+        }
+        
+        insertionNode.next = n.next;
+        n.next = insertionNode;
+    }
+    
+    public void insertBefore(int search, int value){         // 12 , 97 ---- Insert 97 after node having data as 12
+        Node insertionNode = new Node(value);
+        
+        Node n = head;
+        Node previous = head;
+        
+        while(n.data != search){
+            previous = n;
+            n = n.next;
+        }
+        
+        insertionNode.next = n;
+        previous.next = insertionNode;
+    }
+    
+    public void deleteBefore(int search){         // 12 , 97 ---- Insert 97 after node having data as 12
+        
+        Node n = head;
+        Node previous = head;
+        
+        while(n.next != null){
+            if(n.next.data == search){
+                break;
+            }else{
+                previous = n;
+                n = n.next;
+            }
+        }
+        previous.next = n.next;
+        n.next = null;
+                
+    }
+    public void deleteAfter(int search){         // 12 , 97 ---- Insert 97 after node having data as 12
+        
+        Node n = head;
+        Node previous = head;
+        
+        while(n.next != null){
+            if(previous.data == search){
+                break;
+            }else{
+                previous = n;
+                n = n.next;
+            }
+        }
+        if(n.next == null){
+            previous.next = null;
+            n.next = null;
+            tail=previous;
+        }else{
+            previous.next = n.next;
+            n.next = null;
+        }
+        System.out.println("Tail"+tail.data);  
+    }
+    
+    public void deleteElement(int search){         // 12 , 97 ---- Insert 97 after node having data as 12
+        
+        Node n = head;
+        Node previous = head;
+        
+        while(n.next!=null){
+            if(n.data==search){
+                break;
+            }else{
+                previous=n;
+                n=n.next;
+            }
+        }
+        
+        if(n == head){
+            head=head.next;
+            n.next = null;
+        }else if(n == tail)
+            tail=previous;
+            //need to edit---------------------->
+            
+        else{
+            
+            previous.next = n.next;
+            n.next = null;
+        }
+    }
+    
+    
+    public void addNodeToHead(int s){
+        
+        Node currentNode = new Node(s);
+    
+        currentNode.next = head;
+        head = currentNode;
+        
+    }
+    public void deleteHeadNode(){
+         head = head.next;
+    }
+    
+    public void deleteTailNode(){
+         Node n = head;
+         Node previous = head;
+         while(n.next != null){
+             previous = n;
+             n = n.next;
+         }
+         
+         previous.next = null;
+         tail = previous;
+    }
+    
+	public static void main(String[] args) {
+		MyLinkedList mll  = new MyLinkedList();
+		
+	    mll.addNormal(12);
+	    mll.addNormal(8);
+	    mll.addNormal(98);
+	    mll.addNormal(11);
+	    mll.addNormal(9);
+	    mll.addNormal(99);
+	    mll.printList();
+	    mll.deleteTailNode();
+	    mll.printList();
+	    mll.deleteBefore(11);
+	    mll.printList();
+	    mll.deleteAfter(11);
+	    mll.printList();
+	    mll.addNormal(121);
+	    mll.printList();
+	    System.out.println("head-->"+head.data);
+	    mll.deleteElement(8);
+	    mll.printList();
+	}
+}

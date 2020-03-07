@@ -1,0 +1,75 @@
+import java.util.*;
+class Cricket{     
+    public static void main(String[] args) {
+        Scanner in=new Scanner(System.in);
+        System.out.print("Enter the data: ");
+        String str=in.nextLine();
+        int[] arr=new int[11];
+        int tot=0,extra=0,wick=10,strike=0,nonstrike=1,next=2,balls=0;
+        Double overs=0.0;
+        for(int i=0;i<str.length();i++){
+            if(Character.isDigit(str.charAt(i))){
+                if(Integer.parseInt(""+str.charAt(i))%2!=0){
+                    arr[strike]+=Integer.parseInt(""+str.charAt(i));
+                    tot+=Integer.parseInt(""+str.charAt(i));
+                    int temp=strike;
+                    strike=nonstrike;
+                    nonstrike=temp;
+                    ++balls;
+                    if(balls<7){
+                        overs+=0.1;
+                    }else{
+                        overs=(1.0+overs-0.5);
+                        balls=0;
+                    }
+                }else{
+                    arr[strike]+=Integer.parseInt(""+str.charAt(i));
+                    tot+=Integer.parseInt(""+str.charAt(i));
+                    ++balls;
+                    if(balls<7){
+                        overs+=0.1;
+                    }else{
+                        overs=(1.0+overs-0.5);
+                        balls=0;
+                    }
+                }
+            }else{
+                if(str.charAt(i)=='.'){
+                    ++balls;
+                    if(balls<7){
+                        overs+=0.1;
+                    }else{
+                        overs=(1.0+overs-0.5);
+                        balls=0;
+                    }
+                }else if(str.charAt(i)=='O'){
+                    wick--;
+                    strike=next;
+                    next++;++balls;
+                    if(balls<7){
+                        overs+=0.1;
+                    }else{
+                        overs=(1.0+overs-0.5);
+                        balls=0;
+                    }
+                }else if(str.charAt(i)=='W'){
+                    tot+=1;
+                    extra+=1;
+                }
+            }
+            // System.out.println("balls:"+balls);
+            
+        }
+        //overs
+
+        for(int i=0;i<next;i++){
+            System.out.println("P"+(i+1)+"-"+arr[i]+"(runs)");
+        }
+        System.out.println("Strike-P"+(strike+1)+"\nNon-Strike-P"+(nonstrike+1));
+        System.out.println("Total-"+tot);
+        System.out.printf("Overs-%.1f\n",overs);
+        System.out.println("Extras-"+extra);
+        System.out.println("Wicket(s)-"+(10-wick)+"\nRemaing Wicket(s)-"+wick);
+
+    }
+}
